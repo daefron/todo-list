@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <link rel="stylesheet" href="style.css" />
-    <script src="main.js"></script>
+    <script src="index.js"></script>
   </head>
   <body>
     <div id="content">
@@ -22,25 +22,30 @@
             </div>
             <div class="project">
               <p>- &nbsp;test project</p>
+              <img class="edit" src="text-box-edit.svg" />
               <img class="delete" src="delete-forever.svg" />
             </div>
             <div class="project">
               <p>- &nbsp;test project</p>
+              <img class="edit" src="text-box-edit.svg" />
               <img class="delete" src="delete-forever.svg" />
             </div>
             <div class="project">
               <p>- &nbsp;test project</p>
+              <img class="edit" src="text-box-edit.svg" />
               <img class="delete" src="delete-forever.svg" />
             </div>
             <div class="project">
               <p>- &nbsp;test project</p>
+              <img class="edit" src="text-box-edit.svg" />
               <img class="delete" src="delete-forever.svg" />
             </div>
           </div>
         </div>
         <div id="mainright">
+          <h3>to-do list</h3>
           <div class="todo">
-            <input type="checkbox">
+            <input type="checkbox" />
             <p>todo item</p>
             <p>23/04/24</p>
             <p>priority</p>
@@ -52,7 +57,7 @@
             </div>
           </div>
           <div class="todo">
-            <input type="checkbox">
+            <input type="checkbox" />
             <p>todo item</p>
             <p>23/04/24</p>
             <p>priority</p>
@@ -85,10 +90,15 @@
         </div>
         <div id="todoModal">
           <h3>new todo</h3>
-          <img src="close-circle.svg">
-          <input type="text">
-          <input id="date" type="date">
-          <input id="priority" type="text" value="to be priority list">
+          <img src="close-circle.svg" />
+          <input type="text" />
+          <input type="text" />
+          <input id="date" type="date" />
+          <select id="priority">
+            <option value="high">high</option>
+            <option value="normal">normal</option>
+            <option value="low">low</option>
+          </select>
           <button>create</button>
         </div>
         <div id="todoDelModal">
