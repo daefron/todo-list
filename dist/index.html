@@ -40,6 +40,7 @@
         </div>
         <div id="mainright">
           <div class="todo">
+            <input type="checkbox">
             <p>todo item</p>
             <p>23/04/24</p>
             <p>priority</p>
@@ -51,6 +52,7 @@
             </div>
           </div>
           <div class="todo">
+            <input type="checkbox">
             <p>todo item</p>
             <p>23/04/24</p>
             <p>priority</p>
@@ -63,7 +65,43 @@
           </div>
         </div>
       </div>
-      <div id="footer"></div>
+      <div id="blackout">
+        <div id="projectModal">
+          <h3>new project</h3>
+          <img src="close-circle.svg" />
+          <input type="text" />
+          <button>create</button>
+        </div>
+        <div id="projectDelModal">
+          <h3>delete project-name?</h3>
+          <p>
+            are you sure you want to delete project-name? this cannot be
+            reversed.
+          </p>
+          <div>
+            <button>cancel</button>
+            <button>delete</button>
+          </div>
+        </div>
+        <div id="todoModal">
+          <h3>new todo</h3>
+          <img src="close-circle.svg">
+          <input type="text">
+          <input id="date" type="date">
+          <input id="priority" type="text" value="to be priority list">
+          <button>create</button>
+        </div>
+        <div id="todoDelModal">
+          <h3>delete todo-name?</h3>
+          <p>
+            are you sure you want to delete todo-name? this cannot be reversed.
+          </p>
+          <div>
+            <button>cancel</button>
+            <button>delete</button>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
 </html>
