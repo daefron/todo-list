@@ -1,5 +1,6 @@
 body {
   font-family: Helvetica, sans-serif;
+  width: 100vw;
   margin: 0;
   background-color: rgb(235, 235, 235);
   display: flex;
@@ -56,10 +57,12 @@ body {
   height: 25px;
   width: 25px;
 }
+#rightHeader img:hover,
 #leftHeader img:hover {
   filter: invert(70%) sepia(44%) saturate(5277%) hue-rotate(74deg)
     brightness(98%) contrast(96%);
 }
+#rightHeader img:active,
 #leftHeader img:active {
   filter: invert(34%) sepia(47%) saturate(3563%) hue-rotate(116deg)
     brightness(96%) contrast(90%);
@@ -71,10 +74,13 @@ body {
   width: 100%;
 }
 .project img {
-  visibility: hidden;
+  /* visibility: hidden; */
   height: 25px;
   width: 25px;
   margin-right: 10px;
+}
+.project :nth-child(3) {
+  padding-right: 10px;
 }
 .delete:hover {
   filter: invert(11%) sepia(98%) saturate(6673%) hue-rotate(1deg)
@@ -102,9 +108,16 @@ body {
   display: flex;
   flex-direction: column;
 }
-#mainright h3 {
+#rightHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-inline: 20px;
-  margin-bottom: 0;
+  margin-bottom: -10px;
+}
+#rightHeader img {
+  width: 25px;
+  height: 25px;
 }
 .todo {
   margin-inline: 20px;
@@ -136,7 +149,7 @@ body {
   width: 25px;
 }
 .edit:hover {
-  filter: invert(94%) sepia(0%) saturate(0%) hue-rotate(171deg) brightness(83%)
+  filter: invert(94%) sepia(0%) saturate(0%) hue-rotate(171deg) brightness(63%)
     contrast(87%);
 }
 .edit:active {

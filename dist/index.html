@@ -4,9 +4,9 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>yoo-do</title>
     <link rel="stylesheet" href="style.css" />
-    <script src="index.js"></script>
+    <script src="index.js" defer></script>
   </head>
   <body>
     <div id="content">
@@ -18,43 +18,19 @@
           <div id="projects">
             <div id="leftHeader">
               <h3>projects</h3>
-              <img src="./plus-circle.svg" />
+              <img src="./plus-circle.svg" onClick="buttons.createProject()" />
             </div>
             <div class="project">
               <p>- &nbsp;test project</p>
               <img class="edit" src="text-box-edit.svg" />
-              <img class="delete" src="delete-forever.svg" />
-            </div>
-            <div class="project">
-              <p>- &nbsp;test project</p>
-              <img class="edit" src="text-box-edit.svg" />
-              <img class="delete" src="delete-forever.svg" />
-            </div>
-            <div class="project">
-              <p>- &nbsp;test project</p>
-              <img class="edit" src="text-box-edit.svg" />
-              <img class="delete" src="delete-forever.svg" />
-            </div>
-            <div class="project">
-              <p>- &nbsp;test project</p>
-              <img class="edit" src="text-box-edit.svg" />
-              <img class="delete" src="delete-forever.svg" />
+              <img class="delete" src="delete-forever.svg" onClick="buttons.projectDel()" />
             </div>
           </div>
         </div>
         <div id="mainright">
-          <h3>to-do list</h3>
-          <div class="todo">
-            <input type="checkbox" />
-            <p>todo item</p>
-            <p>23/04/24</p>
-            <p>priority</p>
-            <div>
-              <img class="edit" src="text-box-edit.svg" />
-            </div>
-            <div>
-              <img class="delete" src="delete-forever.svg" />
-            </div>
+          <div id="rightHeader">
+            <h3>to-do list</h3>
+            <img src="./plus-circle.svg" onClick="buttons.createTodo()" />
           </div>
           <div class="todo">
             <input type="checkbox" />
@@ -65,7 +41,7 @@
               <img class="edit" src="text-box-edit.svg" />
             </div>
             <div>
-              <img class="delete" src="delete-forever.svg" />
+              <img class="delete" src="delete-forever.svg" onClick="buttons.todoDel()"/>
             </div>
           </div>
         </div>
@@ -73,7 +49,7 @@
       <div id="blackout">
         <div id="projectModal">
           <h3>new project</h3>
-          <img src="close-circle.svg" />
+          <img src="close-circle.svg" onClick="buttons.closeModal()" />
           <input type="text" />
           <button>create</button>
         </div>
@@ -84,13 +60,13 @@
             reversed.
           </p>
           <div>
-            <button>cancel</button>
-            <button>delete</button>
+            <button onClick="buttons.closeModal()">cancel</button>
+            <button onClick="buttons.closeModal()">delete</button>
           </div>
         </div>
         <div id="todoModal">
           <h3>new todo</h3>
-          <img src="close-circle.svg" />
+          <img src="close-circle.svg" onClick="buttons.closeModal()" />
           <input type="text" />
           <input type="text" />
           <input id="date" type="date" />
@@ -107,8 +83,8 @@
             are you sure you want to delete todo-name? this cannot be reversed.
           </p>
           <div>
-            <button>cancel</button>
-            <button>delete</button>
+            <button onClick="buttons.closeModal()">cancel</button>
+            <button onClick="buttons.closeModal()">delete</button>
           </div>
         </div>
       </div>
