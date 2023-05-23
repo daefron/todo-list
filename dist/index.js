@@ -23,26 +23,22 @@ const projectMaker = (() => {
     this.priority = priority;
     this.checked = checked;
   }
+
+  const createProject = () => { 
+    buttons.closeModal();
+    let title = document.getElementById("title").value;
+    let position = projectHolder.length;
+    console.log(position);
+    console.log(position);
+    return projectToDisplay(new Project(position, title, []));
+  }
+  
   projectHolder.push(new Project(0, "test project 0", []));
-  projectHolder.push(new Project(1, "test project 1", []));
   projectHolder
     .at(0)
     .todoHolder.push(
       new Todo(
         0,
-        0,
-        "test todo 0",
-        "this is the first test todo",
-        "29/03/2024",
-        "high",
-        true
-      )
-    );
-  projectHolder
-    .at(1)
-    .todoHolder.push(
-      new Todo(
-        1,
         0,
         "test todo 0",
         "this is the first test todo",
@@ -104,7 +100,7 @@ const projectMaker = (() => {
     let todoTitle = document.createElement("p");
     todoTitle.textContent = todo.title;
     todoDiv.appendChild(todoTitle);
-
+    
     let todoDueDate = document.createElement("p");
     todoDueDate.textContent = todo.dueDate;
     todoDiv.appendChild(todoDueDate);
@@ -128,8 +124,10 @@ const projectMaker = (() => {
     todoDel.setAttribute("onclick", "buttons.todoDel()");
     delDiv.appendChild(todoDel);
   }
+  
+
+
   projectToDisplay(projectHolder[0]);
-  projectToDisplay(projectHolder[1]);
   const getActiveProject = (projectPosition) => {
     let toClean = document.getElementsByClassName("project");
     console.log(toClean);
@@ -151,6 +149,7 @@ const projectMaker = (() => {
     return activeProject;
   };
   return {
+    createProject,
     projectToDisplay,
     todoToDisplay,
     getActiveProject,
@@ -190,6 +189,7 @@ const buttons = (() => {
     todoDelModal.style.visibility = "visible";
     blackout.style.visibility = "visible";
   };
+
   const cleanProjects = (element) => {
     console.log(element);
     document.getElementById(element).style["background-color"] = "white";
@@ -198,6 +198,7 @@ const buttons = (() => {
     document.querySelector("#" + element + " .delete").style.visibility =
       "hidden";
   };
+
   const projectButton = (projectPosition) => {
     document.getElementById("project" + projectPosition).style[
       "background-color"

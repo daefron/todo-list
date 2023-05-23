@@ -30,12 +30,12 @@
         </div>
       </div>
       <div id="blackout">
-        <div id="projectModal">
+        <form id="projectModal">
           <h3>new project</h3>
           <img src="close-circle.svg" onClick="buttons.closeModal()" />
-          <input type="text" />
-          <button>create</button>
-        </div>
+          <input id="title" type="text" />
+          <button type="button" onClick="projectMaker.createProject()">create</button>
+        </form>
         <div id="projectDelModal">
           <h3>delete project-name?</h3>
           <p>
@@ -47,7 +47,7 @@
             <button>delete</button>
           </div>
         </div>
-        <div id="todoModal">
+        <form id="todoModal">
           <h3>new todo</h3>
           <img src="close-circle.svg" onClick="buttons.closeModal()" />
           <input type="text" />
@@ -59,7 +59,7 @@
             <option value="low">low</option>
           </select>
           <button>create</button>
-        </div>
+        </form>
         <div id="todoDelModal">
           <h3>delete todo-name?</h3>
           <p>
