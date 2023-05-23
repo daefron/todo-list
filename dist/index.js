@@ -69,7 +69,7 @@ const projectMaker = (() => {
   function projectToDisplay(Project) {
     let projectDiv = document.createElement("div");
     projectDiv.classList.add("project");
-    projectDiv.id = Project.position;
+    projectDiv.id = "project" + Project.position;
     projectDiv.setAttribute(
       "onclick",
       "projectMaker.getActiveProject(" + Project.position + ")"
@@ -131,8 +131,14 @@ const projectMaker = (() => {
   projectToDisplay(projectHolder[0]);
   projectToDisplay(projectHolder[1]);
   const getActiveProject = (projectPosition) => {
+    let toClean = document.getElementsByClassName("project");
+    console.log(toClean);
+    Array.from(toClean).forEach((element) => {
+      console.log(element.id);
+      buttons.cleanProjects(element.id);
+    });
+    buttons.projectButton(projectPosition);
     let toDel = document.getElementsByClassName("todo");
-    console.log(toDel);
     Array.from(toDel).forEach((element) => {
       element.remove();
     });
@@ -184,13 +190,24 @@ const buttons = (() => {
     todoDelModal.style.visibility = "visible";
     blackout.style.visibility = "visible";
   };
-  const projectButton = () => {
-    document.querySelector(".project").addEventListener("click", () => {
-      document.querySelector(".project").style["background-color"] =
-        "rgb(212, 212, 212)";
-      document.querySelector(".project > .edit").style.visibility = "visible";
-      document.querySelector(".project > .delete").style.visibility = "visible";
-    });
+  const cleanProjects = (element) => {
+    console.log(element);
+    document.getElementById(element).style["background-color"] = "white";
+    document.querySelector("#" + element + " .edit").style.visibility =
+      "hidden";
+    document.querySelector("#" + element + " .delete").style.visibility =
+      "hidden";
+  };
+  const projectButton = (projectPosition) => {
+    document.getElementById("project" + projectPosition).style[
+      "background-color"
+    ] = "rgb(200, 200, 200)";
+    document.querySelector(
+      "#project" + projectPosition + " .edit"
+    ).style.visibility = "visible";
+    document.querySelector(
+      "#project" + projectPosition + " .delete"
+    ).style.visibility = "visible";
   };
 
   return {
@@ -200,5 +217,6 @@ const buttons = (() => {
     projectDel,
     todoDel,
     projectButton,
+    cleanProjects,
   };
 })();
