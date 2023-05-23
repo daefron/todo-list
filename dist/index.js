@@ -40,6 +40,14 @@ const projectMaker = (() => {
     document.getElementById("rightHeader").style.visibility = "hidden";
   };
 
+  const editProject = () => {
+    buttons.closeModal();
+    let title = document.getElementById("titleEdit").value;
+    projectHolder.at(activeProject).title = title;
+    document.querySelector("#project" + activeProject + " p").textContent = title;
+    console.log(projectHolder.at(activeProject));
+  }
+
   const createTodo = () => {
     buttons.closeModal();
     let project = activeProject;
@@ -162,6 +170,10 @@ const projectMaker = (() => {
     projectToDisplay,
     todoToDisplay,
     getActiveProject,
+    editProject,
+    // editTodo,
+    projectHolder,
+    activeProject,
   };
 })();
 
