@@ -172,6 +172,7 @@ body {
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.4);
 }
+#projectEditModal,
 #projectModal {
   visibility: hidden;
   width: 600px;
@@ -185,11 +186,15 @@ body {
   grid-template-rows: 1fr 1fr;
   background-color: rgb(50, 50, 50);
 }
+#todoEditModal h3,
+#projectEditModal h3,
 #todoModal h3,
 #projectModal h3 {
   color: white;
   margin-block: 0px;
 }
+#todoEditModal img,
+#projectEditModal img,
 #todoModal img,
 #projectModal img {
   height: 25px;
@@ -197,14 +202,22 @@ body {
   filter: invert(100%);
   justify-self: right;
 }
+#todoEditModal img:hover,
+#projectEditModal img:hover,
 #todoModal img:hover,
 #projectModal img:hover {
   filter: invert(70%);
 }
+#todoEditModal img:active,
+#projectEditModal img:active,
 #todoModal img:active,
 #projectModal img:active {
   filter: invert(40%);
 }
+#todoEditModal input,
+#todoEditModal button,
+#projectEditModal input,
+#projectEditModal button,
 #todoModal input,
 #todoModal button,
 #projectModal input,
@@ -215,6 +228,7 @@ body {
   font-weight: bold;
   background-color: white;
 }
+#todoEditModal,
 #todoModal {
   visibility: hidden;
   width: 600px;
@@ -229,11 +243,13 @@ body {
   background-color: rgb(50, 50, 50);
   color: white;
 }
+#todoEditModal :nth-child(3),
 #todoModal :nth-child(3) {
   grid-row-start: 2;
   grid-column-start: 1;
   grid-column-end: 3;
 }
+#todoEditModal :nth-child(4),
 #todoModal :nth-child(4) {
   grid-row-start: 3;
   grid-column-start: 1;
@@ -252,11 +268,11 @@ body {
 #priority option {
   font-weight: bold;
 }
+#todoEditModal button,
 #todoModal button {
   grid-row-start: 5;
   grid-column-start: 2;
 }
-
 #todoDelModal,
 #projectDelModal {
   visibility: hidden;

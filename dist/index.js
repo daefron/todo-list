@@ -37,8 +37,8 @@ const projectMaker = (() => {
     buttons.closeModal();
     buttons.delProject("project" + activeProject);
     delete projectHolder[activeProject];
-    document.getElementById("rightHeader").style.visibility = "hidden"
-  }
+    document.getElementById("rightHeader").style.visibility = "hidden";
+  };
 
   const createTodo = () => {
     buttons.closeModal();
@@ -87,6 +87,7 @@ const projectMaker = (() => {
     let projectEdit = document.createElement("img");
     projectEdit.classList.add("edit");
     projectEdit.src = "text-box-edit.svg";
+    projectEdit.setAttribute("onclick", "buttons.projectEdit()");
     projectDiv.appendChild(projectEdit);
 
     let projectDelete = document.createElement("img");
@@ -123,6 +124,7 @@ const projectMaker = (() => {
     let todoEdit = document.createElement("img");
     todoEdit.classList.add("edit");
     todoEdit.src = "text-box-edit.svg";
+    todoEdit.setAttribute("onclick", "buttons.todoEdit()");
     editDiv.appendChild(todoEdit);
 
     let delDiv = document.createElement("div");
@@ -169,6 +171,8 @@ const buttons = (() => {
   const todoModal = document.getElementById("todoModal");
   const projectDelModal = document.getElementById("projectDelModal");
   const todoDelModal = document.getElementById("todoDelModal");
+  const projectEditModal = document.getElementById("projectEditModal");
+  const todoEditModal = document.getElementById("todoEditModal");
 
   const createProject = () => {
     projectModal.style.visibility = "visible";
@@ -186,6 +190,8 @@ const buttons = (() => {
     projectModal.style.visibility = "hidden";
     todoDelModal.style.visibility = "hidden";
     projectDelModal.style.visibility = "hidden";
+    projectEditModal.style.visibility = "hidden";
+    todoEditModal.style.visibility = "hidden";
   };
 
   const projectDel = () => {
@@ -198,6 +204,15 @@ const buttons = (() => {
     blackout.style.visibility = "visible";
   };
 
+  const projectEdit = () => {
+    projectEditModal.style.visibility = "visible";
+    blackout.style.visibility = "visible";
+  };
+
+  const todoEdit = () => {
+    todoEditModal.style.visibility = "visible";
+    blackout.style.visibility = "visible";
+  }
   const cleanProjects = (element) => {
     document.getElementById(element).style["background-color"] = "white";
     document.querySelector("#" + element + " .edit").style.visibility =
@@ -208,7 +223,7 @@ const buttons = (() => {
 
   const delProject = (element) => {
     document.getElementById(element).remove();
-  }
+  };
   const projectButton = (projectPosition) => {
     document.getElementById("project" + projectPosition).style[
       "background-color"
@@ -230,5 +245,7 @@ const buttons = (() => {
     projectButton,
     cleanProjects,
     delProject,
+    projectEdit,
+    todoEdit,
   };
 })();

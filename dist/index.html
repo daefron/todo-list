@@ -39,6 +39,15 @@
           <input id="title" type="text" placeholder="project title" required />
           <button type="submit">create</button>
         </form>
+        <form
+          id="projectEditModal"
+          onsubmit="projectMaker.editProject(); return false"
+        >
+          <h3>edit project</h3>
+          <img src="close-circle.svg" onClick="buttons.closeModal()" />
+          <input id="titleEdit" type="text" placeholder="project title" required />
+          <button type="submit">update</button>
+        </form>
         <div id="projectDelModal">
           <h3>delete project-name?</h3>
           <p>
@@ -71,6 +80,28 @@
             <option value="low">low</option>
           </select>
           <button type="submit">create</button>
+        </form>  
+        <form id="todoEditModal" onsubmit="projectMaker.editTodo(); return false">
+          <h3>edit todo</h3>
+          <img src="close-circle.svg" onClick="buttons.closeModal()" />
+          <input
+            id="todoTitleEdit"
+            type="text"
+            placeholder="to-do title"
+            required
+          />
+          <input
+            id="todoDescriptionEdit"
+            type="text"
+            placeholder="to-do description"
+          />
+          <input id="dateEdit" type="date" placeholder="due date" required />
+          <select id="priorityEdit" required>
+            <option value="high">high</option>
+            <option value="normal">normal</option>
+            <option value="low">low</option>
+          </select>
+          <button type="submit">update</button>
         </form>
         <div id="todoDelModal">
           <h3>delete todo-name?</h3>
