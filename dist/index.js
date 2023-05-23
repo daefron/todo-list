@@ -33,6 +33,14 @@ const projectMaker = (() => {
     return projectToDisplay(projectHolder.at(position));
   };
 
+  const deleteProject = () => {
+    buttons.closeModal();
+    console.log(projectHolder);
+    buttons.delProject("project" + activeProject);
+    delete projectHolder[activeProject];
+    console.log(projectHolder);
+  }
+
   const createTodo = () => {
     buttons.closeModal();
     let project = activeProject;
@@ -40,11 +48,16 @@ const projectMaker = (() => {
     let position = projectHolder.at(project).todoHolder.length;
     console.log(position);
     let title = document.getElementById("todoTitle").value;
+    document.getElementById("todoTitle").value = "";
     let description = document.getElementById("todoDescription").value;
+    document.getElementById("todoDescription").value = "";
     let dueDate = document.getElementById("date").value;
+    document.getElementById("date").value = "";
     let priority = document.getElementById("priority").value;
     let checked = false;
-    projectHolder.at(project).todoHolder.push(
+    projectHolder
+      .at(project)
+      .todoHolder.push(
         new Todo(
           project,
           position,
@@ -57,33 +70,7 @@ const projectMaker = (() => {
       );
     return todoToDisplay(projectHolder.at(project).todoHolder.at(position));
   };
-  projectHolder.push(new Project(0, "test project 0", []));
-  projectHolder
-    .at(0)
-    .todoHolder.push(
-      new Todo(
-        0,
-        0,
-        "test todo 0",
-        "this is the first test todo",
-        "29/03/2024",
-        "high",
-        true
-      )
-    );
-  projectHolder
-    .at(0)
-    .todoHolder.push(
-      new Todo(
-        0,
-        1,
-        "test todo 1",
-        "this is the second test todo",
-        "29/03/2024",
-        "high",
-        true
-      )
-    );
+
   const projects = document.getElementById("projects");
   const todos = document.getElementById("mainright");
   function projectToDisplay(Project) {
@@ -149,7 +136,6 @@ const projectMaker = (() => {
     todoDel.setAttribute("onclick", "buttons.todoDel()");
     delDiv.appendChild(todoDel);
   }
-  projectToDisplay(projectHolder[0]);
 
   const getActiveProject = (projectPosition) => {
     let toClean = document.getElementsByClassName("project");
@@ -171,6 +157,7 @@ const projectMaker = (() => {
   };
   return {
     createProject,
+    deleteProject,
     createTodo,
     projectToDisplay,
     todoToDisplay,
@@ -220,6 +207,9 @@ const buttons = (() => {
       "hidden";
   };
 
+  const delProject = (element) => {
+    document.getElementById(element).remove();
+  }
   const projectButton = (projectPosition) => {
     document.getElementById("project" + projectPosition).style[
       "background-color"
@@ -240,5 +230,6 @@ const buttons = (() => {
     todoDel,
     projectButton,
     cleanProjects,
+    delProject,
   };
 })();
