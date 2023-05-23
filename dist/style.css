@@ -8,7 +8,7 @@ body {
   align-items: center;
 }
 #header {
-  width: 100vw;
+  width: max(100vw, 1000px);
   height: 60px;
   background-color: rgb(50, 50, 50);
   display: flex;
@@ -84,11 +84,11 @@ body {
 }
 .delete:hover {
   filter: invert(11%) sepia(98%) saturate(6673%) hue-rotate(1deg)
-  brightness(95%) contrast(112%);
+    brightness(95%) contrast(112%);
 }
 .delete:active {
   filter: invert(11%) sepia(48%) saturate(6693%) hue-rotate(354deg)
-  brightness(97%) contrast(117%);
+    brightness(97%) contrast(117%);
 }
 #projects p {
   width: 100%;
@@ -154,7 +154,7 @@ body {
 }
 .edit:active {
   filter: invert(94%) sepia(0%) saturate(0%) hue-rotate(171deg) brightness(43%)
-  contrast(87%);
+    contrast(87%);
 }
 .todo div {
   display: flex;
