@@ -50,15 +50,15 @@
         <form id="todoModal">
           <h3>new todo</h3>
           <img src="close-circle.svg" onClick="buttons.closeModal()" />
-          <input type="text" />
-          <input type="text" />
+          <input id="todoTitle" type="text" />
+          <input id="todoDescription" type="text" />
           <input id="date" type="date" />
           <select id="priority">
             <option value="high">high</option>
             <option value="normal">normal</option>
             <option value="low">low</option>
           </select>
-          <button>create</button>
+          <button type="button" onClick="projectMaker.createTodo()">create</button>
         </form>
         <div id="todoDelModal">
           <h3>delete todo-name?</h3>

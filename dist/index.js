@@ -24,15 +24,39 @@ const projectMaker = (() => {
     this.checked = checked;
   }
 
-  const createProject = () => { 
+  const createProject = () => {
     buttons.closeModal();
     let title = document.getElementById("title").value;
     let position = projectHolder.length;
+    document.getElementById("title").value = "";
+    projectHolder.push(new Project(position, title, []));
+    return projectToDisplay(projectHolder.at(position));
+  };
+
+  const createTodo = () => {
+    buttons.closeModal();
+    let project = activeProject;
+    console.log(project);
+    let position = projectHolder.at(project).todoHolder.length;
     console.log(position);
-    console.log(position);
-    return projectToDisplay(new Project(position, title, []));
-  }
-  
+    let title = document.getElementById("todoTitle").value;
+    let description = document.getElementById("todoDescription").value;
+    let dueDate = document.getElementById("date").value;
+    let priority = document.getElementById("priority").value;
+    let checked = false;
+    projectHolder.at(project).todoHolder.push(
+        new Todo(
+          project,
+          position,
+          title,
+          description,
+          dueDate,
+          priority,
+          checked
+        )
+      );
+    return todoToDisplay(projectHolder.at(project).todoHolder.at(position));
+  };
   projectHolder.push(new Project(0, "test project 0", []));
   projectHolder
     .at(0)
@@ -94,13 +118,14 @@ const projectMaker = (() => {
     todos.appendChild(todoDiv);
 
     let todoChecked = document.createElement("input");
+    todoChecked.id = "check";
     todoChecked.setAttribute("type", "checkbox");
     todoDiv.appendChild(todoChecked);
 
     let todoTitle = document.createElement("p");
     todoTitle.textContent = todo.title;
     todoDiv.appendChild(todoTitle);
-    
+
     let todoDueDate = document.createElement("p");
     todoDueDate.textContent = todo.dueDate;
     todoDiv.appendChild(todoDueDate);
@@ -124,15 +149,11 @@ const projectMaker = (() => {
     todoDel.setAttribute("onclick", "buttons.todoDel()");
     delDiv.appendChild(todoDel);
   }
-  
-
-
   projectToDisplay(projectHolder[0]);
+
   const getActiveProject = (projectPosition) => {
     let toClean = document.getElementsByClassName("project");
-    console.log(toClean);
     Array.from(toClean).forEach((element) => {
-      console.log(element.id);
       buttons.cleanProjects(element.id);
     });
     buttons.projectButton(projectPosition);
@@ -140,7 +161,7 @@ const projectMaker = (() => {
     Array.from(toDel).forEach((element) => {
       element.remove();
     });
-    let activeProject = projectPosition;
+    activeProject = projectPosition;
     todoAmount = projectHolder.at(projectPosition).todoHolder.length;
     while (todoAmount > 0) {
       --todoAmount;
@@ -150,6 +171,7 @@ const projectMaker = (() => {
   };
   return {
     createProject,
+    createTodo,
     projectToDisplay,
     todoToDisplay,
     getActiveProject,
@@ -191,7 +213,6 @@ const buttons = (() => {
   };
 
   const cleanProjects = (element) => {
-    console.log(element);
     document.getElementById(element).style["background-color"] = "white";
     document.querySelector("#" + element + " .edit").style.visibility =
       "hidden";
