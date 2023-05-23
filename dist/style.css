@@ -109,6 +109,7 @@ body {
   flex-direction: column;
 }
 #rightHeader {
+  visibility: hidden;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -223,21 +224,30 @@ body {
   position: fixed;
   display: grid;
   gap: 20px;
-  grid-template-columns: 4fr 1fr;
+  grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
   background-color: rgb(50, 50, 50);
   color: white;
 }
+#todoModal :nth-child(3) {
+  grid-row-start: 2;
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
 #todoModal :nth-child(4) {
   grid-row-start: 3;
+  grid-column-start: 1;
+  grid-column-end: 3;
 }
 #date {
   grid-row-start: 4;
+  text-align: center;
 }
 #priority {
-  grid-row-start: 5;
+  grid-row-start: 4;
   font-size: 16px;
   font-weight: bold;
+  text-align: center;
 }
 #priority option {
   font-weight: bold;

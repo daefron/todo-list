@@ -1,6 +1,6 @@
 const projectMaker = (() => {
   let projectHolder = [];
-  let activeProject = 0;
+  let activeProject = -1;
   function Project(position, title, todoHolder) {
     this.position = position;
     this.title = title;
@@ -35,18 +35,15 @@ const projectMaker = (() => {
 
   const deleteProject = () => {
     buttons.closeModal();
-    console.log(projectHolder);
     buttons.delProject("project" + activeProject);
     delete projectHolder[activeProject];
-    console.log(projectHolder);
+    document.getElementById("rightHeader").style.visibility = "hidden"
   }
 
   const createTodo = () => {
     buttons.closeModal();
     let project = activeProject;
-    console.log(project);
     let position = projectHolder.at(project).todoHolder.length;
-    console.log(position);
     let title = document.getElementById("todoTitle").value;
     document.getElementById("todoTitle").value = "";
     let description = document.getElementById("todoDescription").value;
@@ -138,6 +135,7 @@ const projectMaker = (() => {
   }
 
   const getActiveProject = (projectPosition) => {
+    document.getElementById("rightHeader").style.visibility = "visible";
     let toClean = document.getElementsByClassName("project");
     Array.from(toClean).forEach((element) => {
       buttons.cleanProjects(element.id);
@@ -164,6 +162,7 @@ const projectMaker = (() => {
     getActiveProject,
   };
 })();
+
 const buttons = (() => {
   const blackout = document.getElementById("blackout");
   const projectModal = document.getElementById("projectModal");

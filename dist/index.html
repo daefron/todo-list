@@ -30,13 +30,14 @@
         </div>
       </div>
       <div id="blackout">
-        <form id="projectModal">
+        <form
+          id="projectModal"
+          onsubmit="projectMaker.createProject(); return false"
+        >
           <h3>new project</h3>
           <img src="close-circle.svg" onClick="buttons.closeModal()" />
           <input id="title" type="text" placeholder="project title" required />
-          <button type="button" onClick="projectMaker.createProject()">
-            create
-          </button>
+          <button type="submit">create</button>
         </form>
         <div id="projectDelModal">
           <h3>delete project-name?</h3>
@@ -49,20 +50,27 @@
             <button onClick="projectMaker.deleteProject()">delete</button>
           </div>
         </div>
-        <form id="todoModal">
+        <form id="todoModal" onsubmit="projectMaker.createTodo(); return false">
           <h3>new todo</h3>
           <img src="close-circle.svg" onClick="buttons.closeModal()" />
-          <input id="todoTitle" type="text" placeholder="to-do title" required />
-          <input id="todoDescription" type="text" placeholder="to-do description" />
+          <input
+            id="todoTitle"
+            type="text"
+            placeholder="to-do title"
+            required
+          />
+          <input
+            id="todoDescription"
+            type="text"
+            placeholder="to-do description"
+          />
           <input id="date" type="date" placeholder="due date" required />
           <select id="priority" required>
             <option value="high">high</option>
             <option value="normal">normal</option>
             <option value="low">low</option>
           </select>
-          <button type="button" onClick="projectMaker.createTodo()">
-            create
-          </button>
+          <button type="submit">create</button>
         </form>
         <div id="todoDelModal">
           <h3>delete todo-name?</h3>
