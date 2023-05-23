@@ -74,7 +74,7 @@ body {
   width: 100%;
 }
 .project img {
-  /* visibility: hidden; */
+  visibility: hidden;
   height: 25px;
   width: 25px;
   margin-right: 10px;
@@ -195,6 +195,14 @@ body {
   width: 25px;
   filter: invert(100%);
   justify-self: right;
+}
+#todoModal img:hover,
+#projectModal img:hover {
+  filter: invert(70%);
+}
+#todoModal img:active,
+#projectModal img:active {
+  filter: invert(40%);
 }
 #todoModal input,
 #todoModal button,
