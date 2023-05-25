@@ -1,6 +1,7 @@
 const projectMaker = (() => {
   let projectHolder = [];
   let activeProject = -1;
+  let activeTodo = -1;
   function Project(position, title, todoHolder) {
     this.position = position;
     this.title = title;
@@ -44,9 +45,9 @@ const projectMaker = (() => {
     buttons.closeModal();
     let title = document.getElementById("titleEdit").value;
     projectHolder.at(activeProject).title = title;
-    document.querySelector("#project" + activeProject + " p").textContent = title;
-    console.log(projectHolder.at(activeProject));
-  }
+    document.querySelector("#project" + activeProject + " p").textContent =
+      title;
+  };
 
   const createTodo = () => {
     buttons.closeModal();
@@ -74,6 +75,27 @@ const projectMaker = (() => {
         )
       );
     return todoToDisplay(projectHolder.at(project).todoHolder.at(position));
+  };
+
+  const deleteTodo = () => {
+    buttons.closeModal();
+    console.log(activeProject + "todo" + activeTodo);
+    buttons.delTodo(activeProject + "todo" + activeTodo);
+    delete projectHolder.at(activeProject).todoHolder[0];
+  };
+
+  const getActiveTodo = (position) => {
+    activeTodo = position;
+    return activeTodo;
+  };
+
+  const editTodo = () => {
+    buttons.closeModal();
+    // let title = document.getElementById("todoTitleEdit").value;
+    // projectHolder.at(activeProject).
+    // let description = document.getElementById("todoDescriptionEdit").value;
+    // let dueDate = document.getElementById("dateEdit").value;
+    // let priority = document.getElementById("priorityEdit").value;
   };
 
   const projects = document.getElementById("projects");
@@ -108,6 +130,7 @@ const projectMaker = (() => {
   function todoToDisplay(todo) {
     let todoDiv = document.createElement("div");
     todoDiv.classList.add("todo");
+    todoDiv.id = activeProject + "todo" + todo.position;
     todos.appendChild(todoDiv);
 
     let todoChecked = document.createElement("input");
@@ -140,7 +163,11 @@ const projectMaker = (() => {
     let todoDel = document.createElement("img");
     todoDel.classList.add("delete");
     todoDel.src = "delete-forever.svg";
-    todoDel.setAttribute("onclick", "buttons.todoDel()");
+    todoPosition = todo.position;
+    todoDel.setAttribute(
+      "onclick",
+      "projectMaker.getActiveTodo(" + todoPosition + "); buttons.todoDel()"
+    );
     delDiv.appendChild(todoDel);
   }
 
@@ -159,7 +186,9 @@ const projectMaker = (() => {
     todoAmount = projectHolder.at(projectPosition).todoHolder.length;
     while (todoAmount > 0) {
       --todoAmount;
-      todoToDisplay(projectHolder.at(projectPosition).todoHolder[todoAmount]);
+      if (projectHolder.at(projectPosition).todoHolder[todoAmount] !== undefined) {
+        todoToDisplay(projectHolder.at(projectPosition).todoHolder[todoAmount]);
+      }
     }
     return activeProject;
   };
@@ -167,13 +196,16 @@ const projectMaker = (() => {
     createProject,
     deleteProject,
     createTodo,
+    deleteTodo,
     projectToDisplay,
     todoToDisplay,
     getActiveProject,
+    getActiveTodo,
     editProject,
-    // editTodo,
+    editTodo,
     projectHolder,
     activeProject,
+    activeTodo,
   };
 })();
 
@@ -224,7 +256,7 @@ const buttons = (() => {
   const todoEdit = () => {
     todoEditModal.style.visibility = "visible";
     blackout.style.visibility = "visible";
-  }
+  };
   const cleanProjects = (element) => {
     document.getElementById(element).style["background-color"] = "white";
     document.querySelector("#" + element + " .edit").style.visibility =
@@ -236,6 +268,11 @@ const buttons = (() => {
   const delProject = (element) => {
     document.getElementById(element).remove();
   };
+
+  const delTodo = (element) => {
+    document.getElementById(element).remove();
+  }
+
   const projectButton = (projectPosition) => {
     document.getElementById("project" + projectPosition).style[
       "background-color"
@@ -259,5 +296,6 @@ const buttons = (() => {
     delProject,
     projectEdit,
     todoEdit,
+    delTodo,
   };
 })();
