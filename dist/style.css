@@ -256,16 +256,19 @@ body {
   grid-column-start: 1;
   grid-column-end: 3;
 }
+#dateEdit,
 #date {
   grid-row-start: 4;
   text-align: center;
 }
+#priorityEdit,
 #priority {
   grid-row-start: 4;
   font-size: 16px;
   font-weight: bold;
   text-align: center;
 }
+#priorityEdit,
 #priority option {
   font-weight: bold;
 }

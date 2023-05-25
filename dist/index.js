@@ -8,19 +8,19 @@ const projectMaker = (() => {
     this.todoHolder = todoHolder;
   }
   function Todo(
+    dueDate,
     project,
     position,
     title,
     description,
-    dueDate,
     priority,
     checked
   ) {
+    this.dueDate = dueDate;
     this.project = project;
     this.position = position;
     this.title = title;
     this.description = description;
-    this.dueDate = dueDate;
     this.priority = priority;
     this.checked = checked;
   }
@@ -65,11 +65,11 @@ const projectMaker = (() => {
       .at(project)
       .todoHolder.push(
         new Todo(
+          dueDate,
           project,
           position,
           title,
           description,
-          dueDate,
           priority,
           checked
         )
@@ -79,7 +79,6 @@ const projectMaker = (() => {
 
   const deleteTodo = () => {
     buttons.closeModal();
-    console.log(activeProject + "todo" + activeTodo);
     buttons.delTodo(activeProject + "todo" + activeTodo);
     delete projectHolder.at(activeProject).todoHolder[0];
   };
@@ -91,11 +90,24 @@ const projectMaker = (() => {
 
   const editTodo = () => {
     buttons.closeModal();
-    // let title = document.getElementById("todoTitleEdit").value;
-    // projectHolder.at(activeProject).
-    // let description = document.getElementById("todoDescriptionEdit").value;
-    // let dueDate = document.getElementById("dateEdit").value;
-    // let priority = document.getElementById("priorityEdit").value;
+
+    let title = document.getElementById("todoTitleEdit").value;
+    projectHolder.at(activeProject).todoHolder.at(activeTodo).title = title;
+    document.getElementById(activeProject + "todoTitle" + activeTodo).textContent =
+    title;
+    
+    let description = document.getElementById("todoDescriptionEdit").value;
+    projectHolder.at(activeProject).todoHolder.at(activeTodo).description = description;
+    
+    let dueDate = document.getElementById("dateEdit").value;
+    projectHolder.at(activeProject).todoHolder.at(activeTodo).dueDate = dueDate;
+    document.getElementById(activeProject + "todoDueDate" + activeTodo).textContent =
+    dueDate;
+
+    let priority = document.getElementById("priorityEdit").value;
+    projectHolder.at(activeProject).todoHolder.at(activeTodo).priority = priority;
+    document.getElementById(activeProject + "todoPriority" + activeTodo).textContent =
+    priority;
   };
 
   const projects = document.getElementById("projects");
@@ -139,23 +151,30 @@ const projectMaker = (() => {
     todoDiv.appendChild(todoChecked);
 
     let todoTitle = document.createElement("p");
+    todoTitle.id = activeProject + "todoTitle" + todo.position;
     todoTitle.textContent = todo.title;
     todoDiv.appendChild(todoTitle);
 
     let todoDueDate = document.createElement("p");
+    todoDueDate.id = activeProject + "todoDueDate" + todo.position;
     todoDueDate.textContent = todo.dueDate;
     todoDiv.appendChild(todoDueDate);
 
     let todoPriority = document.createElement("p");
+    todoPriority.id = activeProject + "todoPriority" + todo.position;
     todoPriority.textContent = todo.priority;
     todoDiv.appendChild(todoPriority);
 
+    todoPosition = todo.position;
     let editDiv = document.createElement("div");
     todoDiv.appendChild(editDiv);
     let todoEdit = document.createElement("img");
     todoEdit.classList.add("edit");
     todoEdit.src = "text-box-edit.svg";
-    todoEdit.setAttribute("onclick", "buttons.todoEdit()");
+    todoEdit.setAttribute(
+      "onclick",
+      "projectMaker.getActiveTodo(" + todoPosition + "); buttons.todoEdit()"
+    );
     editDiv.appendChild(todoEdit);
 
     let delDiv = document.createElement("div");
@@ -163,7 +182,6 @@ const projectMaker = (() => {
     let todoDel = document.createElement("img");
     todoDel.classList.add("delete");
     todoDel.src = "delete-forever.svg";
-    todoPosition = todo.position;
     todoDel.setAttribute(
       "onclick",
       "projectMaker.getActiveTodo(" + todoPosition + "); buttons.todoDel()"
@@ -186,7 +204,9 @@ const projectMaker = (() => {
     todoAmount = projectHolder.at(projectPosition).todoHolder.length;
     while (todoAmount > 0) {
       --todoAmount;
-      if (projectHolder.at(projectPosition).todoHolder[todoAmount] !== undefined) {
+      if (
+        projectHolder.at(projectPosition).todoHolder[todoAmount] !== undefined
+      ) {
         todoToDisplay(projectHolder.at(projectPosition).todoHolder[todoAmount]);
       }
     }
@@ -271,7 +291,7 @@ const buttons = (() => {
 
   const delTodo = (element) => {
     document.getElementById(element).remove();
-  }
+  };
 
   const projectButton = (projectPosition) => {
     document.getElementById("project" + projectPosition).style[
