@@ -16,7 +16,10 @@ const projectMaker = (() => {
     priority,
     checked
   ) {
-    this.dueDate = dueDate;
+    let year = dueDate.slice(0, 4);
+    let month = dueDate.slice(5, 7);
+    let day = dueDate.slice(8, 10);
+    this.dueDate = day + "-" + month + "-" + year;
     this.project = project;
     this.position = position;
     this.title = title;
@@ -163,6 +166,15 @@ const projectMaker = (() => {
     let todoPriority = document.createElement("p");
     todoPriority.id = activeProject + "todoPriority" + todo.position;
     todoPriority.textContent = todo.priority;
+    if (todo.priority == "high") {
+      todoPriority.style.color = "red";
+    }
+    else if (todo.priority == "normal") {
+      todoPriority.style.color = "black";
+    }
+    else if (todo.priority == "low") {
+      todoPriority.style.color = "green";
+    }
     todoDiv.appendChild(todoPriority);
 
     todoPosition = todo.position;
