@@ -1,5 +1,5 @@
 const projectMaker = (() => {
-  let projectHolder = [];
+  console.log(JSON.parse(localStorage.getItem("projectHolder")));
   let activeProject = -1;
   let activeTodo = -1;
   function Project(position, title, todoHolder) {
@@ -8,50 +8,53 @@ const projectMaker = (() => {
     this.todoHolder = todoHolder;
   }
   function Todo(
-    dueDate,
     project,
     position,
+    dueDate,
     title,
     description,
     priority,
     checked
-  ) {
-    let year = dueDate.slice(0, 4);
-    let month = dueDate.slice(5, 7);
-    let day = dueDate.slice(8, 10);
-    this.dueDate = day + "-" + month + "-" + year;
-    this.project = project;
-    this.position = position;
-    this.title = title;
-    this.description = description;
-    this.priority = priority;
-    this.checked = checked;
-  }
-
-  const createProject = () => {
-    buttons.closeModal();
+    ) {
+      let year = dueDate.slice(0, 4);
+      let month = dueDate.slice(5, 7);
+      let day = dueDate.slice(8, 10);
+      this.project = project;
+      this.position = position;
+      this.dueDate = day + "-" + month + "-" + year;
+      this.title = title;
+      this.description = description;
+      this.priority = priority;
+      this.checked = checked;
+    }
+    
+    const createProject = () => {
+      buttons.closeModal();
     let title = document.getElementById("title").value;
     let position = projectHolder.length;
     document.getElementById("title").value = "";
     projectHolder.push(new Project(position, title, []));
+    localStorage.setItem("projectHolder", JSON.stringify(projectHolder));
     return projectToDisplay(projectHolder.at(position));
   };
-
+  
   const deleteProject = () => {
     buttons.closeModal();
     buttons.delProject("project" + activeProject);
     delete projectHolder[activeProject];
+    localStorage.setItem("projectHolder", JSON.stringify(projectHolder));
     document.getElementById("rightHeader").style.visibility = "hidden";
   };
-
+  
   const editProject = () => {
     buttons.closeModal();
     let title = document.getElementById("titleEdit").value;
     projectHolder.at(activeProject).title = title;
+    localStorage.setItem("projectHolder", JSON.stringify(projectHolder));
     document.querySelector("#project" + activeProject + " p").textContent =
-      title;
+    title;
   };
-
+  
   const createTodo = () => {
     buttons.closeModal();
     let project = activeProject;
@@ -68,24 +71,26 @@ const projectMaker = (() => {
       .at(project)
       .todoHolder.push(
         new Todo(
-          dueDate,
           project,
           position,
+          dueDate,
           title,
           description,
           priority,
           checked
-        )
-      );
-    return todoToDisplay(projectHolder.at(project).todoHolder.at(position));
-  };
+          )
+          );
+      localStorage.setItem("projectHolder", JSON.stringify(projectHolder));
+      return todoToDisplay(projectHolder.at(project).todoHolder.at(position));
+    };
 
-  const deleteTodo = () => {
-    buttons.closeModal();
+    const deleteTodo = () => {
+      buttons.closeModal();
     buttons.delTodo(activeProject + "todo" + activeTodo);
     delete projectHolder.at(activeProject).todoHolder[0];
+    localStorage.setItem("projectHolder", JSON.stringify(projectHolder));
   };
-
+  
   const getActiveTodo = (position) => {
     activeTodo = position;
     return activeTodo;
@@ -93,90 +98,94 @@ const projectMaker = (() => {
 
   const editTodo = () => {
     buttons.closeModal();
-
+    
     let title = document.getElementById("todoTitleEdit").value;
     projectHolder.at(activeProject).todoHolder.at(activeTodo).title = title;
-    document.getElementById(activeProject + "todoTitle" + activeTodo).textContent =
-    title;
-    
+    document.getElementById(
+      activeProject + "todoTitle" + activeTodo
+      ).textContent = title;
+      
     let description = document.getElementById("todoDescriptionEdit").value;
-    projectHolder.at(activeProject).todoHolder.at(activeTodo).description = description;
+    projectHolder.at(activeProject).todoHolder.at(activeTodo).description =
+    description;
     
     let dueDate = document.getElementById("dateEdit").value;
     projectHolder.at(activeProject).todoHolder.at(activeTodo).dueDate = dueDate;
-    document.getElementById(activeProject + "todoDueDate" + activeTodo).textContent =
-    dueDate;
-
-    let priority = document.getElementById("priorityEdit").value;
-    projectHolder.at(activeProject).todoHolder.at(activeTodo).priority = priority;
-    document.getElementById(activeProject + "todoPriority" + activeTodo).textContent =
-    priority;
-  };
-
-  const projects = document.getElementById("projects");
-  const todos = document.getElementById("mainright");
-  function projectToDisplay(Project) {
-    let projectDiv = document.createElement("div");
-    projectDiv.classList.add("project");
-    projectDiv.id = "project" + Project.position;
-    projectDiv.setAttribute(
-      "onclick",
-      "projectMaker.getActiveProject(" + Project.position + ")"
-    );
-    projects.appendChild(projectDiv);
-
+    document.getElementById(
+      activeProject + "todoDueDate" + activeTodo
+      ).textContent = dueDate;
+      
+      let priority = document.getElementById("priorityEdit").value;
+      projectHolder.at(activeProject).todoHolder.at(activeTodo).priority =
+      priority;
+      document.getElementById(
+        activeProject + "todoPriority" + activeTodo
+        ).textContent = priority;
+        localStorage.setItem("projectHolder", JSON.stringify(projectHolder));
+      };
+      
+      const projects = document.getElementById("projects");
+      const todos = document.getElementById("mainright");
+      function projectToDisplay(Project) {
+        let projectDiv = document.createElement("div");
+        projectDiv.classList.add("project");
+        projectDiv.id = "project" + Project.position;
+        projectDiv.setAttribute(
+          "onclick",
+          "projectMaker.getActiveProject(" + Project.position + ")"
+          );
+          projects.appendChild(projectDiv);
+          
     let projectTitle = document.createElement("p");
     projectTitle.textContent = Project.title;
     projectDiv.appendChild(projectTitle);
-
+    
     let projectEdit = document.createElement("img");
     projectEdit.classList.add("edit");
     projectEdit.src = "text-box-edit.svg";
     projectEdit.setAttribute("onclick", "buttons.projectEdit()");
     projectDiv.appendChild(projectEdit);
-
+    
     let projectDelete = document.createElement("img");
     projectDelete.classList.add("delete");
     projectDelete.src = "delete-forever.svg";
     projectDelete.setAttribute("onclick", "buttons.projectDel()");
     projectDiv.appendChild(projectDelete);
   }
-
+  
   function todoToDisplay(todo) {
     let todoDiv = document.createElement("div");
     todoDiv.classList.add("todo");
     todoDiv.id = activeProject + "todo" + todo.position;
     todos.appendChild(todoDiv);
-
+    
     let todoChecked = document.createElement("input");
-    todoChecked.id = "check";
+    todoChecked.id = activeProject + "check" + todo.position;
     todoChecked.setAttribute("type", "checkbox");
     todoDiv.appendChild(todoChecked);
-
+    
     let todoTitle = document.createElement("p");
     todoTitle.id = activeProject + "todoTitle" + todo.position;
     todoTitle.textContent = todo.title;
     todoDiv.appendChild(todoTitle);
-
+    
     let todoDueDate = document.createElement("p");
     todoDueDate.id = activeProject + "todoDueDate" + todo.position;
     todoDueDate.textContent = todo.dueDate;
     todoDiv.appendChild(todoDueDate);
-
+    
     let todoPriority = document.createElement("p");
     todoPriority.id = activeProject + "todoPriority" + todo.position;
     todoPriority.textContent = todo.priority;
     if (todo.priority == "high") {
       todoPriority.style.color = "red";
-    }
-    else if (todo.priority == "normal") {
+    } else if (todo.priority == "normal") {
       todoPriority.style.color = "black";
-    }
-    else if (todo.priority == "low") {
+    } else if (todo.priority == "low") {
       todoPriority.style.color = "green";
     }
     todoDiv.appendChild(todoPriority);
-
+    
     todoPosition = todo.position;
     let editDiv = document.createElement("div");
     todoDiv.appendChild(editDiv);
@@ -186,44 +195,53 @@ const projectMaker = (() => {
     todoEdit.setAttribute(
       "onclick",
       "projectMaker.getActiveTodo(" + todoPosition + "); buttons.todoEdit()"
-    );
-    editDiv.appendChild(todoEdit);
-
-    let delDiv = document.createElement("div");
-    todoDiv.appendChild(delDiv);
+      );
+      editDiv.appendChild(todoEdit);
+      
+      let delDiv = document.createElement("div");
+      todoDiv.appendChild(delDiv);
     let todoDel = document.createElement("img");
     todoDel.classList.add("delete");
     todoDel.src = "delete-forever.svg";
     todoDel.setAttribute(
       "onclick",
       "projectMaker.getActiveTodo(" + todoPosition + "); buttons.todoDel()"
-    );
-    delDiv.appendChild(todoDel);
-  }
-
-  const getActiveProject = (projectPosition) => {
-    document.getElementById("rightHeader").style.visibility = "visible";
-    let toClean = document.getElementsByClassName("project");
-    Array.from(toClean).forEach((element) => {
-      buttons.cleanProjects(element.id);
-    });
-    buttons.projectButton(projectPosition);
-    let toDel = document.getElementsByClassName("todo");
-    Array.from(toDel).forEach((element) => {
-      element.remove();
-    });
-    activeProject = projectPosition;
-    todoAmount = projectHolder.at(projectPosition).todoHolder.length;
-    while (todoAmount > 0) {
-      --todoAmount;
-      if (
-        projectHolder.at(projectPosition).todoHolder[todoAmount] !== undefined
-      ) {
-        todoToDisplay(projectHolder.at(projectPosition).todoHolder[todoAmount]);
+      );
+      delDiv.appendChild(todoDel);
+    }
+    
+    const getActiveProject = (projectPosition) => {
+      document.getElementById("rightHeader").style.visibility = "visible";
+      let toClean = document.getElementsByClassName("project");
+      Array.from(toClean).forEach((element) => {
+        buttons.cleanProjects(element.id);
+      });
+      buttons.projectButton(projectPosition);
+      let toDel = document.getElementsByClassName("todo");
+      Array.from(toDel).forEach((element) => {
+        element.remove();
+      });
+      activeProject = projectPosition;
+      todoAmount = projectHolder.at(projectPosition).todoHolder.length;
+      let i = -1;
+    while (i < todoAmount) {
+      ++i;
+      if (projectHolder.at(projectPosition).todoHolder[i] !== undefined) {
+        todoToDisplay(projectHolder.at(projectPosition).todoHolder[i]);
       }
     }
     return activeProject;
   };
+  if (JSON.parse(localStorage.getItem("projectHolder")) !== null) { 
+    var projectHolder = JSON.parse(localStorage.getItem("projectHolder"));
+    console.log(projectHolder);
+    projectHolder.forEach((element) => {
+      return projectToDisplay(projectHolder.at(element.position));
+    })
+  }
+  else {
+    var projectHolder = [];
+  }
   return {
     createProject,
     deleteProject,
